@@ -179,6 +179,7 @@ Mensagem que será enviada na notificação.
 );
 }
 
+
 const styles = StyleSheet.create({
 container: {
 flex: 1,
