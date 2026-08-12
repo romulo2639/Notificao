@@ -29,7 +29,6 @@ const [titulo, setTitulo] = useState('');
 const [mensagem, setMensagem] = useState('');
 const [status, setStatus] = useState('');
 
-// Busca o token do próprio dispositivo ao carregar o app
 useEffect(() => {
 obterToken();
 }, []);
@@ -115,14 +114,12 @@ return (
 <SafeAreaView style={styles.container}>
 <StatusBar barStyle="light-content" backgroundColor="#0052CC" />
 
-{/* Header */}
 <View style={styles.header}>
 <Text style={styles.headerTitle}>Enviar Notificação</Text>
 </View>
 
 <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
 
-{/* Campo: Token do dispositivo */}
 <View style={styles.inputGroup}>
 <Text style={styles.label}>Token do dispositivo</Text>
 <View style={styles.inputIconContainer}>
@@ -141,7 +138,6 @@ Cole o Expo Push Token do dispositivo que irá receber a notificação.
 </Text>
 </View>
 
-{/* Campo: Título */}
 <View style={styles.inputGroup}>
 <Text style={styles.label}>Título</Text>
 <TextInput
@@ -156,7 +152,6 @@ Título que aparecerá na notificação.
 </Text>
 </View>
 
-{/* Campo: Mensagem */}
 <View style={styles.inputGroup}>
 <Text style={styles.label}>Mensagem</Text>
 <TextInput
@@ -174,7 +169,6 @@ Mensagem que será enviada na notificação.
 </Text>
 </View>
 
-{/* Botão Enviar */}
 <TouchableOpacity style={styles.button} onPress={enviarNotificacao} activeOpacity={0.8}>
 <Ionicons name="paper-plane" size={20} color="#FFFFFF" style={styles.buttonIcon} />
 <Text style={styles.buttonText}>Enviar Notificação</Text>
