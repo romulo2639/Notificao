@@ -41,15 +41,9 @@ export default function App() {
   // Controle de Navegação: 'cadastro' | 'login' | 'notificacao'
   const [telaAtual, setTelaAtual] = useState('cadastro');
 
-<<<<<<< HEAD
   // Estados globais / autenticação
   const [expoPushToken, setExpoPushToken] = useState('');
   const [usuarioLogado, setUsuarioLogado] = useState(null);
-=======
-useEffect(() => {
-obterToken();
-}, []);
->>>>>>> 715ad49703d130f9c809c561d024cc67e20fa8ea
 
   // Obter o Token de Notificação ao iniciar
   useEffect(() => {
@@ -166,7 +160,7 @@ function TelaCadastro({ expoPushToken, irParaLogin }) {
           { text: 'Ir para Login', onPress: irParaLogin },
         ]);
         setNome('');
-        setEmail('');
+        // E-mail não será mais limpo (deletado) daqui
         setSenha('');
       } else {
         const erro = await resposta.json();
@@ -364,7 +358,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
   const [enviando, setEnviando] = useState(false);
   const [modalVisivel, setModalVisivel] = useState(false);
 
-<<<<<<< HEAD
   useEffect(() => {
     carregarUsuarios();
   }, []);
@@ -426,7 +419,7 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
       const resultado = await resposta.json();
       console.log('Resultado do envio:', resultado);
 
-      Alert.alert('Sucesso', `Notificação enviada para ${usuarioSelecionado.nome}!`);
+      // Popup de sucesso removido daqui conforme solicitado
       setTitulo('');
       setMensagem('');
     } catch (error) {
@@ -552,131 +545,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
 /* ====================================================================
    ESTILOS
    ==================================================================== */
-=======
-if (!projectId) {
-console.log('ProjectId não encontrado no app.json.');
-return;
-}
-
-const pushToken = await Notifications.getExpoPushTokenAsync({ projectId });
-setExpoPushToken(pushToken.data);
-console.log('EXPO PUSH TOKEN:', pushToken.data);
-} catch (e) {
-console.log('Erro ao obter token:', e);
-}
-}
-
-async function enviarNotificacao() {
-if (!expoPushToken.trim()) {
-Alert.alert('Atenção', 'Informe o Token do dispositivo.');
-return;
-}
-
-if (!mensagem.trim()) {
-Alert.alert('Atenção', 'Digite uma mensagem.');
-return;
-}
-
-try {
-const resposta = await fetch('https://exp.host/--/api/v2/push/send', {
-method: 'POST',
-headers: {
-Accept: 'application/json',
-'Accept-Encoding': 'gzip, deflate',
-'Content-Type': 'application/json',
-},
-body: JSON.stringify({
-to: expoPushToken,
-sound: 'default',
-title: titulo || 'Nova notificação',
-body: mensagem,
-data: { origem: 'painel' },
-}),
-});
-
-const resultado = await resposta.json();
-console.log(resultado);
-
-Alert.alert('Sucesso', 'Notificação enviada!');
-setTitulo('');
-setMensagem('');
-} catch (error) {
-console.log(error);
-Alert.alert('Erro', 'Não foi possível enviar a notificação.');
-}
-}
-
-return (
-<SafeAreaView style={styles.container}>
-<StatusBar barStyle="light-content" backgroundColor="#0052CC" />
-
-<View style={styles.header}>
-<Text style={styles.headerTitle}>Enviar Notificação</Text>
-</View>
-
-<ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-
-<View style={styles.inputGroup}>
-<Text style={styles.label}>Token do dispositivo</Text>
-<View style={styles.inputIconContainer}>
-<TextInput
-style={styles.inputFlex}
-placeholder="ExponentPushToken[...]"
-placeholderTextColor="#9CA3AF"
-value={expoPushToken}
-onChangeText={setExpoPushToken}
-autoCapitalize="none"
-/>
-<Ionicons name="scan-outline" size={22} color="#6B7280" />
-</View>
-<Text style={styles.helperText}>
-Cole o Expo Push Token do dispositivo que irá receber a notificação.
-</Text>
-</View>
-
-<View style={styles.inputGroup}>
-<Text style={styles.label}>Título</Text>
-<TextInput
-style={styles.input}
-placeholder="Ex: Promoção Especial"
-placeholderTextColor="#9CA3AF"
-value={titulo}
-onChangeText={setTitulo}
-/>
-<Text style={styles.helperText}>
-Título que aparecerá na notificação.
-</Text>
-</View>
-
-<View style={styles.inputGroup}>
-<Text style={styles.label}>Mensagem</Text>
-<TextInput
-style={[styles.input, styles.textArea]}
-placeholder="Digite sua mensagem..."
-placeholderTextColor="#9CA3AF"
-value={mensagem}
-onChangeText={setMensagem}
-multiline
-numberOfLines={6}
-textAlignVertical="top"
-/>
-<Text style={styles.helperText}>
-Mensagem que será enviada na notificação.
-</Text>
-</View>
-
-<TouchableOpacity style={styles.button} onPress={enviarNotificacao} activeOpacity={0.8}>
-<Ionicons name="paper-plane" size={20} color="#FFFFFF" style={styles.buttonIcon} />
-<Text style={styles.buttonText}>Enviar Notificação</Text>
-</TouchableOpacity>
-
-</ScrollView>
-</SafeAreaView>
-);
-}
-
-
->>>>>>> 715ad49703d130f9c809c561d024cc67e20fa8ea
 const styles = StyleSheet.create({
   container: {
     flex: 1,
