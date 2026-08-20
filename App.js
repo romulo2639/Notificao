@@ -38,14 +38,11 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
-  // Controle de Navegação: 'cadastro' | 'login' | 'notificacao'
   const [telaAtual, setTelaAtual] = useState('cadastro');
 
-  // Estados globais / autenticação
   const [expoPushToken, setExpoPushToken] = useState('');
   const [usuarioLogado, setUsuarioLogado] = useState(null);
 
-  // Obter o Token de Notificação ao iniciar
   useEffect(() => {
     obterPushToken();
   }, []);
@@ -89,7 +86,6 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0052CC" />
 
-      {/* TELA 1: CADASTRO */}
       {telaAtual === 'cadastro' && (
         <TelaCadastro
           expoPushToken={expoPushToken}
@@ -97,7 +93,6 @@ export default function App() {
         />
       )}
 
-      {/* TELA 2: LOGIN */}
       {telaAtual === 'login' && (
         <TelaLogin
           onLoginSucesso={(user) => {
@@ -108,7 +103,6 @@ export default function App() {
         />
       )}
 
-      {/* TELA 3: ENVIO DE NOTIFICAÇÃO */}
       {telaAtual === 'notificacao' && (
         <TelaNotificacao
           usuarioLogado={usuarioLogado}
@@ -122,9 +116,6 @@ export default function App() {
   );
 }
 
-/* ====================================================================
-   TELA 1: CADASTRO DE USUÁRIO
-   ==================================================================== */
 function TelaCadastro({ expoPushToken, irParaLogin }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -160,7 +151,6 @@ function TelaCadastro({ expoPushToken, irParaLogin }) {
           { text: 'Ir para Login', onPress: irParaLogin },
         ]);
         setNome('');
-        // E-mail não será mais limpo (deletado) daqui
         setSenha('');
       } else {
         const erro = await resposta.json();
@@ -254,9 +244,6 @@ function TelaCadastro({ expoPushToken, irParaLogin }) {
   );
 }
 
-/* ====================================================================
-   TELA 2: LOGIN
-   ==================================================================== */
 function TelaLogin({ onLoginSucesso, irParaCadastro }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -346,9 +333,6 @@ function TelaLogin({ onLoginSucesso, irParaCadastro }) {
   );
 }
 
-/* ====================================================================
-   TELA 3: ENVIO DE NOTIFICAÇÃO PUSH
-   ==================================================================== */
 function TelaNotificacao({ usuarioLogado, onSair }) {
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
@@ -419,7 +403,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
       const resultado = await resposta.json();
       console.log('Resultado do envio:', resultado);
 
-      // Popup de sucesso removido daqui conforme solicitado
       setTitulo('');
       setMensagem('');
     } catch (error) {
@@ -444,7 +427,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
         <Text style={styles.subTitleText}>Escolha o destinatário e envie um push message</Text>
       </View>
 
-      {/* Seleção do Usuário Destinatário */}
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Destinatário</Text>
         <TouchableOpacity
@@ -458,7 +440,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
         </TouchableOpacity>
       </View>
 
-      {/* Título */}
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Título da Mensagem</Text>
         <TextInput
@@ -470,7 +451,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
         />
       </View>
 
-      {/* Mensagem */}
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Mensagem</Text>
         <TextInput
@@ -501,7 +481,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
         )}
       </TouchableOpacity>
 
-      {/* Modal de Seleção de Usuários */}
       <Modal visible={modalVisivel} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -542,9 +521,6 @@ function TelaNotificacao({ usuarioLogado, onSair }) {
   );
 }
 
-/* ====================================================================
-   ESTILOS
-   ==================================================================== */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
